@@ -1,0 +1,31 @@
+stages:
+  clean_books:
+    cmd: python src/preprocess/clean_books.py
+    deps:
+      - data/raw/books.csv
+      - src/preprocess/clean_books.py
+    outs:
+      - data/interim/cleaned_books.csv
+  clean_tags:
+    cmd: python src/preprocess/clean_tags.py
+    deps:
+      - data/raw/tags.csv
+      - src/preprocess/clean_tags.py
+    outs:
+      - data/interim/cleaned_tags.csv
+  merge_tags:
+    cmd: python src/preprocess/merge_book_tags.py
+    deps:
+      - data/interim/cleaned_tags.csv
+      - data/raw/book_tags.csv
+      - src/preprocess/merge_book_tags.py
+    outs:
+      - data/interim/cleaned_book_tags.csv
+  merge_content:
+    cmd: python src/preprocess/merge_book_content.py
+    deps:
+      - data/interim/cleaned_books.csv
+      - data/interim/cleaned_tags.csv
+      - src/preprocess/merge_book_content.py
+    outs:
+      - data/processed/final_book_features.csv

@@ -1,0 +1,74 @@
+schema: '2.0'
+stages:
+  clean_books:
+    cmd: python src/preprocess/clean_books.py
+    deps:
+    - path: data/raw/books.csv
+      hash: md5
+      md5: 2ba8155d6d7b87804b0bc884a7ba0275
+      size: 3296741
+    - path: src/preprocess/clean_books.py
+      hash: md5
+      md5: 1a1bd74723290e53fe97c5551d9377b9
+      size: 1858
+    outs:
+    - path: data/interim/cleaned_books.csv
+      hash: md5
+      md5: 7351eb33c929a6340fa5b9bfed8d1f6d
+      size: 772661
+  clean_tags:
+    cmd: python src/preprocess/clean_tags.py
+    deps:
+    - path: data/raw/tags.csv
+      hash: md5
+      md5: 62d407b3d6bb6fbe00fc4a48ec36d012
+      size: 722480
+    - path: src/preprocess/clean_tags.py
+      hash: md5
+      md5: af9d120227c48686fde8e4fbb3ccd084
+      size: 3286
+    outs:
+    - path: data/interim/cleaned_tags.csv
+      hash: md5
+      md5: a745b3efb98bd44ec1a42d3de70a991e
+      size: 684343
+  merge_tags:
+    cmd: python src/preprocess/merge_book_tags.py
+    deps:
+    - path: data/interim/cleaned_tags.csv
+      hash: md5
+      md5: a745b3efb98bd44ec1a42d3de70a991e
+      size: 684343
+    - path: data/raw/book_tags.csv
+      hash: md5
+      md5: 6737224d6c909864b516da7f4f7bc80e
+      size: 16665883
+    - path: src/preprocess/merge_book_tags.py
+      hash: md5
+      md5: 6cfaae59ca280e2c86d8d9326f6bbc6f
+      size: 1565
+    outs:
+    - path: data/interim/cleaned_book_tags.csv
+      hash: md5
+      md5: 6be68060fa190528c02132dd55cf38d0
+      size: 3509522
+  merge_content:
+    cmd: python src/preprocess/merge_book_content.py
+    deps:
+    - path: data/interim/cleaned_books.csv
+      hash: md5
+      md5: 7351eb33c929a6340fa5b9bfed8d1f6d
+      size: 772661
+    - path: data/interim/cleaned_tags.csv
+      hash: md5
+      md5: a745b3efb98bd44ec1a42d3de70a991e
+      size: 684343
+    - path: src/preprocess/merge_book_content.py
+      hash: md5
+      md5: e50f92019861d58c8ebddb7b6efe119e
+      size: 720
+    outs:
+    - path: data/processed/final_book_features.csv
+      hash: md5
+      md5: e3fcb47eaec769d6e91b7eb89d625e25
+      size: 3826719
