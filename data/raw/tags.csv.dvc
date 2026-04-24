@@ -1,0 +1,5 @@
+outs:
+- md5: 62d407b3d6bb6fbe00fc4a48ec36d012
+  size: 722480
+  hash: md5
+  path: tags.csv
