@@ -22,7 +22,7 @@ def preprocess_authors(author_str):
   
 def preprocess_decade(year):
     if pd.isna(year) or year < 0:
-        return "decade_unknown"
+        return "decade_0s"
     
     decade = int((year // 10) * 10)
     
@@ -32,6 +32,16 @@ def clean_data(input_path, output_path):
     df = pd.read_csv(input_path)
     
     # --- Paste your specific Colab logic here ---
+    
+    idx = df[['original_publication_year', 'title']][df['original_publication_year'].isna()].index
+
+    years = [2008, 1996, 2003, 2003, 2009, 2003, 2010, 2009,
+                                2013, 2010, 1859, 2006, 2010, 1982, 2012, 2000,
+                                1974, 1950, 2009, 2007, 2009]
+
+    update_series = pd.Series(years, index=idx)
+
+    df['original_publication_year'].update(update_series)
     
     lang_map = {
     'en-US': 'eng',
