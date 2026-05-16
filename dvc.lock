@@ -9,13 +9,13 @@ stages:
       size: 3296741
     - path: src/preprocess/clean_books.py
       hash: md5
-      md5: 1a1bd74723290e53fe97c5551d9377b9
-      size: 1858
+      md5: c3a9620d6f0f18a4bb9401c6e67682a6
+      size: 2279
     outs:
     - path: data/interim/cleaned_books.csv
       hash: md5
-      md5: 7351eb33c929a6340fa5b9bfed8d1f6d
-      size: 772661
+      md5: 54ce212db7081116c8878f86ec421ee6
+      size: 772481
   clean_tags:
     cmd: python src/preprocess/clean_tags.py
     deps:
@@ -57,8 +57,8 @@ stages:
     deps:
     - path: data/interim/cleaned_books.csv
       hash: md5
-      md5: 7351eb33c929a6340fa5b9bfed8d1f6d
-      size: 772661
+      md5: 54ce212db7081116c8878f86ec421ee6
+      size: 772481
     - path: data/interim/cleaned_tags.csv
       hash: md5
       md5: a745b3efb98bd44ec1a42d3de70a991e
@@ -70,5 +70,25 @@ stages:
     outs:
     - path: data/processed/final_book_features.csv
       hash: md5
-      md5: e3fcb47eaec769d6e91b7eb89d625e25
-      size: 3826719
+      md5: c88ca1e3a1a32d573f514643352d89d5
+      size: 3826539
+  clean_books_image:
+    cmd: python src/preprocess/clean_books_img.py
+    deps:
+    - path: data/interim/cleaned_books.csv
+      hash: md5
+      md5: 54ce212db7081116c8878f86ec421ee6
+      size: 772481
+    - path: data/raw/books.csv
+      hash: md5
+      md5: 2ba8155d6d7b87804b0bc884a7ba0275
+      size: 3296741
+    - path: src/preprocess/clean_books_img.py
+      hash: md5
+      md5: 1e10a5ff9cb380f99956a7857030dc7f
+      size: 2322
+    outs:
+    - path: data/processed/cleaned_books_with_img.csv
+      hash: md5
+      md5: 13ee493db45f9e34b68fc654eb0297b4
+      size: 1935419
